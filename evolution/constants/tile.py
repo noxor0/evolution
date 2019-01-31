@@ -8,7 +8,7 @@ class Tiles(Enum):
     # WATER = '2'
 
 
-TILE_SIZE = 40
+TILE_SIZE = 5
 TILE_OUTLINE = 1
 FILL_COLOR = 'fill_color'
 OUTLINE_COLOR = 'outline_color'

@@ -8,8 +8,9 @@ def create_tile(screen, x, y, tile_type=Tiles.DIRT):
     tile = TILE_INFO.get(tile_type)
     pygame.draw.rect(screen, tile.get(FILL_COLOR),
                      pygame.Rect(x, y, TILE_SIZE, TILE_SIZE))
-    pygame.draw.rect(screen, tile.get(OUTLINE_COLOR),
-                     pygame.Rect(x, y, TILE_SIZE, TILE_SIZE), TILE_OUTLINE)
+    if OUTLINE_COLOR in tile:
+        pygame.draw.rect(screen, tile.get(OUTLINE_COLOR),
+                         pygame.Rect(x, y, TILE_SIZE, TILE_SIZE), TILE_OUTLINE)
 
 
 class GameMap:

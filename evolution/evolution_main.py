@@ -1,5 +1,5 @@
 import pygame
-import game_map
+from map import game_map
 from constants import game as gc
 
 
