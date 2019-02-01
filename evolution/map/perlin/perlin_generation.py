@@ -48,7 +48,7 @@ def generate_perlin_world_array():
 
 
 def generate_tile_array():
-    tile_map = np.zeros(mc.SHAPE_DIMENSIONS, dtype=TileTypes)
+    tile_map = np.zeros(mc.SHAPE_DIMENSIONS, dtype=Tile)
     perlin_array = generate_perlin_world_array()
     # TODO: Add overlapping range with a random choice to smooth out transitions
     for i in range(perlin_array[0].size):
