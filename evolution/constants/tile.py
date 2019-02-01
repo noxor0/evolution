@@ -3,35 +3,44 @@ from enum import Enum
 from pygame import Color
 
 
-class Tiles(Enum):
+class TileTypes(Enum):
     DIRT = 1
     GRASS = 2
     WATER = 3
     MOUNTAIN = 4
     SNOW = 5
+    DEEP_WATER = 6
 
 
-TILE_SIZE = 5
+TILE_SIZE = 4
 TILE_OUTLINE = 1
 FILL_COLOR = 'fill_color'
 OUTLINE_COLOR = 'outline_color'
+ACCESSIBLE = 'accessible'
 
-# TODO: Add interactable / moveable tags
-TILE_INFO = {
-    Tiles.DIRT: {
-        FILL_COLOR: Color('sandybrown'),
-        # OUTLINE_COLOR: Color('black'),
+TILE_PROPERTIES = {
+    TileTypes.DIRT: {
+        FILL_COLOR: Color('#db9356'),
+        ACCESSIBLE: True,
     },
-    Tiles.GRASS: {
-        FILL_COLOR: Color('green'),
+    TileTypes.GRASS: {
+        FILL_COLOR: Color('#30a630'),
+        ACCESSIBLE: True,
     },
-    Tiles.WATER: {
-        FILL_COLOR: Color('blue'),
+    TileTypes.WATER: {
+        FILL_COLOR: Color('#1da2d8'),
+        ACCESSIBLE: True,
     },
-    Tiles.MOUNTAIN: {
-        FILL_COLOR: Color('grey'),
+    TileTypes.DEEP_WATER: {
+        FILL_COLOR: Color('#1e5481'),
+        ACCESSIBLE: False,
     },
-    Tiles.SNOW: {
-        FILL_COLOR: Color('white'),
+    TileTypes.MOUNTAIN: {
+        FILL_COLOR: Color('#9a9a9a'),
+        ACCESSIBLE: False,
+    },
+    TileTypes.SNOW: {
+        FILL_COLOR: Color('#fffafa'),
+        ACCESSIBLE: False,
     },
 }

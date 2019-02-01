@@ -4,7 +4,8 @@ import numpy as np
 from scipy.misc import toimage
 
 import constants.map as mc
-from constants.tile import Tiles
+from constants.tile import TileTypes
+from map.tile import Tile
 
 
 # TODO: Remove me
@@ -47,22 +48,24 @@ def generate_perlin_world_array():
 
 
 def generate_tile_array():
-    tile_array = np.zeros(mc.SHAPE_DIMENSIONS, dtype=Tiles)
+    tile_map = np.zeros(mc.SHAPE_DIMENSIONS, dtype=TileTypes)
     perlin_array = generate_perlin_world_array()
     # TODO: Add overlapping range with a random choice to smooth out transitions
     for i in range(perlin_array[0].size):
         for j in range(perlin_array[1].size):
-            if perlin_array[i][j] < -0.30:
-                tile_array[i][j] = Tiles.WATER
+            if perlin_array[i][j] < -.35:
+                tile_map[i][j] = Tile(TileTypes.DEEP_WATER)
+            elif perlin_array[i][j] < -0.20:
+                tile_map[i][j] = Tile(TileTypes.WATER)
             elif perlin_array[i][j] < -.15:
-                tile_array[i][j] = Tiles.DIRT
+                tile_map[i][j] = Tile(TileTypes.DIRT)
             elif perlin_array[i][j] < .25:
-                tile_array[i][j] = Tiles.GRASS
+                tile_map[i][j] = Tile(TileTypes.GRASS)
             elif perlin_array[i][j] < 0.45:
-                tile_array[i][j] = Tiles.MOUNTAIN
+                tile_map[i][j] = Tile(TileTypes.MOUNTAIN)
             elif perlin_array[i][j] < 1.0:
-                tile_array[i][j] = Tiles.SNOW
-    return tile_array
+                tile_map[i][j] = Tile(TileTypes.SNOW)
+    return tile_map
 
 
 if __name__ == '__main__':
