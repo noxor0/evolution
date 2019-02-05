@@ -12,7 +12,7 @@ class TileTypes(Enum):
     DEEP_WATER = 6
 
 
-TILE_SIZE = 4
+TILE_SIZE = 8
 TILE_OUTLINE = 1
 FILL_COLOR = 'fill_color'
 OUTLINE_COLOR = 'outline_color'

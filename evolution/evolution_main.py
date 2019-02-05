@@ -7,7 +7,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode(gc.WINDOW_DIMENSIONS)
     done = False
-    map_ = game_map.GameMap(screen).setup_map()
+    map_ = game_map.GameMap(screen)
     map_.setup_map()
 
     while not done:

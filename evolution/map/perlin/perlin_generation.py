@@ -50,21 +50,22 @@ def generate_perlin_world_array():
 def generate_tile_array():
     tile_map = np.zeros(mc.SHAPE_DIMENSIONS, dtype=Tile)
     perlin_array = generate_perlin_world_array()
-    # TODO: Add overlapping range with a random choice to smooth out transitions
     for i in range(perlin_array[0].size):
         for j in range(perlin_array[1].size):
+            tile_type = TileTypes.DIRT
             if perlin_array[i][j] < -.35:
-                tile_map[i][j] = Tile(TileTypes.DEEP_WATER)
+                tile_type = TileTypes.DEEP_WATER
             elif perlin_array[i][j] < -0.20:
-                tile_map[i][j] = Tile(TileTypes.WATER)
+                tile_type = TileTypes.WATER
             elif perlin_array[i][j] < -.15:
-                tile_map[i][j] = Tile(TileTypes.DIRT)
+                tile_type = TileTypes.DIRT
             elif perlin_array[i][j] < .25:
-                tile_map[i][j] = Tile(TileTypes.GRASS)
+                tile_type = TileTypes.GRASS
             elif perlin_array[i][j] < 0.45:
-                tile_map[i][j] = Tile(TileTypes.MOUNTAIN)
+                tile_type = TileTypes.MOUNTAIN
             elif perlin_array[i][j] < 1.0:
-                tile_map[i][j] = Tile(TileTypes.SNOW)
+                tile_type = TileTypes.SNOW
+            tile_map[i][j] = Tile(tile_type, i*mc.TILE_SIZE, j*mc.TILE_SIZE)
     return tile_map
 
 
