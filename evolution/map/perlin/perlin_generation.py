@@ -50,22 +50,22 @@ def generate_perlin_world_array():
 def generate_tile_array():
     tile_map = np.zeros(mc.SHAPE_DIMENSIONS, dtype=Tile)
     perlin_array = generate_perlin_world_array()
-    for i in range(perlin_array[0].size):
-        for j in range(perlin_array[1].size):
+    for x in range(perlin_array[0].size):
+        for y in range(perlin_array[1].size):
             tile_type = TileTypes.DIRT
-            if perlin_array[i][j] < -.35:
+            if perlin_array[x][y] < -.35:
                 tile_type = TileTypes.DEEP_WATER
-            elif perlin_array[i][j] < -0.20:
+            elif perlin_array[x][y] < -0.20:
                 tile_type = TileTypes.WATER
-            elif perlin_array[i][j] < -.15:
+            elif perlin_array[x][y] < -.15:
                 tile_type = TileTypes.DIRT
-            elif perlin_array[i][j] < .25:
+            elif perlin_array[x][y] < .25:
                 tile_type = TileTypes.GRASS
-            elif perlin_array[i][j] < 0.45:
+            elif perlin_array[x][y] < 0.45:
                 tile_type = TileTypes.MOUNTAIN
-            elif perlin_array[i][j] < 1.0:
+            elif perlin_array[x][y] < 1.0:
                 tile_type = TileTypes.SNOW
-            tile_map[i][j] = Tile(tile_type, i*mc.TILE_SIZE, j*mc.TILE_SIZE)
+            tile_map[x][y] = Tile(tile_type, x*mc.TILE_SIZE, y*mc.TILE_SIZE)
     return tile_map
 
 
