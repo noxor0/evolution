@@ -7,6 +7,7 @@ from constants import game as gc
 
 def main():
     pygame.init()
+    pygame.mixer.quit()
     done = False
     screen = pygame.display.set_mode(gc.WINDOW_DIMENSIONS)
     clock = pygame.time.Clock()
@@ -23,7 +24,7 @@ def main():
         game_map.draw()
         # game_map.update()
         pygame.display.flip()
-        clock.tick(30)
+        clock.tick(15)
 
 
 if __name__ == '__main__':

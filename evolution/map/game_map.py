@@ -2,6 +2,7 @@ import random
 
 from constants import tile as tc
 from constants import game as gc
+from map.coordinates import Coordinates
 from map.perlin.perlin_generation import generate_tile_array as perlin_generate_map
 from merps.merp import Merp
 
@@ -10,7 +11,7 @@ random.seed(gc.RAND_SEED)
 
 def _translate_to_tile_map_coordinates(x, y):
     if isinstance(x, int) and isinstance(y, int):
-        return int(x / tc.TILE_SIZE), int(y / tc.TILE_SIZE)
+        return Coordinates(int(x / tc.TILE_SIZE), int(y / tc.TILE_SIZE))
 
 
 class GameMap:
@@ -26,8 +27,8 @@ class GameMap:
     def draw(self):
         for x in range(0, gc.WINDOW_SIZE, tc.TILE_SIZE):
             for y in range(0, gc.WINDOW_SIZE, tc.TILE_SIZE):
-                x_tile, y_tile = _translate_to_tile_map_coordinates(x, y)
-                self.tile_map[x_tile][y_tile].draw(self.screen)
+                tile_map_coordinates = _translate_to_tile_map_coordinates(x, y)
+                self.tile_map[tile_map_coordinates.x][tile_map_coordinates.y].draw(self.screen)
         return self
 
     def update(self):
@@ -38,12 +39,11 @@ class GameMap:
         merp_list = []
         map_size = len(self.tile_map) - 1
         for merp_numb in range(gc.START_MERP_COUNT):
-            random_x = random.randint(0, map_size)
-            random_y = random.randint(0, map_size)
-            random_tile = self.tile_map[random_x][random_y]
+            random_coordinates = Coordinates(random.randint(0, map_size), random.randint(0, map_size))
+            random_tile = self.tile_map[random_coordinates.x][random_coordinates.y]
             if not random_tile.accessible:
-                valid_x, valid_y = self._get_closest_valid_spot_coordinates(random_tile)
-                random_tile = self.tile_map[valid_x][valid_y]
+                closest_valid_coordinates = self._get_closest_valid_spot_coordinates(random_tile)
+                random_tile = self.tile_map[closest_valid_coordinates.x][closest_valid_coordinates.y]
             new_merp = Merp(random_tile)
             merp_list.append(new_merp)
             random_tile.occupied_by = new_merp
@@ -55,28 +55,28 @@ class GameMap:
         map_limit = len(self.tile_map)
 
         def _get_right_tile_coordinates():
-            if tile.tile_map_x + range_from_start >= map_limit:
+            if tile.tile_map_coordinates.x + range_from_start >= map_limit:
                 return
-            if self.tile_map[tile.tile_map_x + range_from_start][tile.tile_map_y].accessible:
-                return tile.tile_map_x + range_from_start, tile.tile_map_y
+            if self.tile_map[tile.tile_map_coordinates.x + range_from_start][tile.tile_map_coordinates.y].accessible:
+                return Coordinates(tile.tile_map_coordinates.x + range_from_start, tile.tile_map_coordinates.y)
 
         def _get_top_tile_coordinates():
-            if tile.tile_map_y + range_from_start >= map_limit:
+            if tile.tile_map_coordinates.y + range_from_start >= map_limit:
                 return
-            elif self.tile_map[tile.tile_map_x][tile.tile_map_y + range_from_start].accessible:
-                return tile.tile_map_x, tile.tile_map_y + range_from_start
+            elif self.tile_map[tile.tile_map_coordinates.x][tile.tile_map_coordinates.y + range_from_start].accessible:
+                return Coordinates(tile.tile_map_coordinates.x, tile.tile_map_coordinates.y + range_from_start)
 
         def _get_left_tile_coordinates():
-            if tile.tile_map_x - range_from_start < 0:
+            if tile.tile_map_coordinates.x - range_from_start < 0:
                 return
-            if self.tile_map[tile.tile_map_x - range_from_start][tile.tile_map_y].accessible:
-                return tile.tile_map_x - range_from_start, tile.tile_map_y
+            if self.tile_map[tile.tile_map_coordinates.x - range_from_start][tile.tile_map_coordinates.y].accessible:
+                return Coordinates(tile.tile_map_coordinates.x - range_from_start, tile.tile_map_coordinates.y)
 
         def _get_bottom_tile_coordinates():
-            if tile.tile_map_y - range_from_start < 0:
+            if tile.tile_map_coordinates.y - range_from_start < 0:
                 return
-            if self.tile_map[tile.tile_map_x][tile.tile_map_y - range_from_start].accessible:
-                return tile.tile_map_x, tile.tile_map_y - range_from_start
+            if self.tile_map[tile.tile_map_coordinates.x][tile.tile_map_coordinates.y - range_from_start].accessible:
+                return Coordinates(tile.tile_map_coordinates.x, tile.tile_map_coordinates.y - range_from_start)
 
         while not inaccessible_tile.accessible:
             adjacent_tile_checks = [_get_bottom_tile_coordinates, _get_top_tile_coordinates,
@@ -93,4 +93,4 @@ class GameMap:
 
             if range_from_start >= map_limit:
                 # NANI?
-                return 0, 0
+                return Coordinates(0, 0)

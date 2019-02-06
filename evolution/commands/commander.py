@@ -7,7 +7,6 @@ class Commander:
 
     def execute_merp_commands(self):
         for merp in self.game_map.merp_list:
-            print(merp.id)
             next_command_with_params = merp.get_next_command()
             if next_command_with_params:
                 command_class = next_command_with_params.command_class

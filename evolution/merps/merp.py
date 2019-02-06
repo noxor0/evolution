@@ -25,7 +25,7 @@ class Merp:
     def draw(self, screen):
         pygame.draw.circle(screen,
                            self.color,
-                           (self.tile.x + mc.HALF_TILE_SIZE, self.tile.y + mc.HALF_TILE_SIZE),
+                           (self.tile.coordinates.x + mc.HALF_TILE_SIZE, self.tile.coordinates.y + mc.HALF_TILE_SIZE),
                            mc.SPRITE_RADIUS)
 
     def get_next_command(self):
