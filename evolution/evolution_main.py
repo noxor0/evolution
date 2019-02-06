@@ -1,4 +1,6 @@
 import pygame
+
+from commands.commander import Commander
 from map.game_map import GameMap
 from constants import game as gc
 
@@ -11,7 +13,10 @@ def main():
     game_map = GameMap(screen)
     game_map.setup()
 
+    commander = Commander(game_map)
+
     while not done:
+        commander.execute_merp_commands()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
