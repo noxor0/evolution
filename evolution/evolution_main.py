@@ -13,6 +13,8 @@ def main():
     clock = pygame.time.Clock()
     game_map = GameMap(screen)
     game_map.setup()
+    game_map.draw()
+    pygame.display.flip()
 
     commander = Commander(game_map)
 
@@ -21,8 +23,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
-        game_map.draw()
-        # game_map.update()
+        game_map.update()
         pygame.display.flip()
         clock.tick(15)
 

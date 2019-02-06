@@ -13,6 +13,10 @@ class MoveCommand:
 
     def execute(self):
         curr_tile = self.merp.tile
-        # curr_tile
-        print(self, "executed move with", self.direction)
+        new_tile_coordinates = curr_tile.tile_map_coordinates + self.direction
+        self.merp.tile.occupied_by = None
+        self.merp.tile = self.game_map.tile_map[new_tile_coordinates.x][new_tile_coordinates.y]
+        self.game_map.tile_map[new_tile_coordinates.x][new_tile_coordinates.y].occupied_by = self.merp
 
+        print(self, "executed move with old: {}, new:{}"
+              .format(curr_tile.coordinates.to_tuple(), new_tile_coordinates.to_tuple()))

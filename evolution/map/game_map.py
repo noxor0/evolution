@@ -1,4 +1,5 @@
 import random
+import pygame
 
 from constants import tile as tc
 from constants import game as gc
@@ -32,8 +33,13 @@ class GameMap:
         return self
 
     def update(self):
+        self.screen.fill((0, 0, 0))
+        for x in range(0, gc.WINDOW_SIZE, tc.TILE_SIZE):
+            for y in range(0, gc.WINDOW_SIZE, tc.TILE_SIZE):
+                tile_map_coordinates = _translate_to_tile_map_coordinates(x, y)
+                self.tile_map[tile_map_coordinates.x][tile_map_coordinates.y].draw(self.screen)
+        return self
         # TODO: Uses a queue that contains all the changes that happen to the map
-        pass
 
     def _populate_merp(self):
         merp_list = []
