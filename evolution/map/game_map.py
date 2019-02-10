@@ -1,5 +1,4 @@
 import random
-import pygame
 
 from constants import tile as tc
 from constants import game as gc
