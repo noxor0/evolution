@@ -29,3 +29,11 @@ class Merp:
     def get_next_choice(self):
         if self.commands_todo:
             return self.commands_todo.pop()
+        else:
+            return None, None
+
+    def move(self, new_tile):
+        self.tile.occupied_by = None
+        self.tile = new_tile
+        self.tile.occupied_by = self
+

@@ -25,7 +25,7 @@ def main():
                 done = True
         game_map.update()
         pygame.display.flip()
-        clock.tick(15)
+        clock.tick(12)
 
 
 if __name__ == '__main__':
