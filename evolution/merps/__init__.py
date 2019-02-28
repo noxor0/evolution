@@ -1,7 +1,6 @@
 import random
 
 from constants import game as gc
-from constants import merp as mc
 from commands.command import Command
 from commands.move_command import MoveCommand
 from constants import command as cc
@@ -12,15 +11,13 @@ random.seed(gc.RAND_SEED)
 
 
 # GODS PLAN
-def create_life_choices(parents=None):
+def create_a_choice(parents=None):
     command_generation_function = {
         MoveCommand: _create_move_command,
     }
-    merp_choices = []
-    for _ in range(mc.LIFE_SPAN):
-        next_choice = random.choice(COMMAND_LIST)
-        merp_choices.append(command_generation_function.get(next_choice)(parents))
-    return merp_choices
+    next_choice = random.choice(COMMAND_LIST)
+    command, command_kwargs = command_generation_function.get(next_choice)(parents)
+    return command, command_kwargs
 
 
 def _create_move_command(parents):

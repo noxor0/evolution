@@ -3,7 +3,7 @@ import random
 
 from constants import game as gc
 from constants import merp as mc
-from merps import create_life_choices
+from merps import create_a_choice
 
 random.seed(gc.RAND_SEED)
 
@@ -11,13 +11,12 @@ random.seed(gc.RAND_SEED)
 class Merp:
     merp_count = 0
 
-    def __init__(self, tile, parent=None):
+    def __init__(self, tile, parents=(None, None)):
         self.color = random.choice([mc.FEMALE_COLOR, mc.MALE_COLOR])
         self.tile = tile
         self.id = Merp.merp_count
-        self.parent = parent
-        self.genetic_commands = create_life_choices()
-        self.commands_todo = self.genetic_commands
+        self.parents = parents
+        self.genetic_commands = [create_a_choice()]
         Merp.merp_count += 1
 
     def draw(self, screen):
@@ -27,10 +26,8 @@ class Merp:
                            mc.SPRITE_RADIUS)
 
     def get_next_choice(self):
-        if self.commands_todo:
-            return self.commands_todo.pop()
-        else:
-            return None, None
+        self.genetic_commands.append(create_a_choice(self.parents))
+        return self.genetic_commands[-1]
 
     def move(self, new_tile):
         self.tile.occupied_by = None

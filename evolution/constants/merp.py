@@ -8,4 +8,4 @@ MALE_COLOR = Color('navy')
 FEMALE_COLOR = Color('hotpink3')
 
 # Denotes the amount of actions they can do in their life
-LIFE_SPAN = 100
+LIFE_SPAN = 1000
